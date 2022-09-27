@@ -1,3 +1,7 @@
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -25,33 +29,33 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        javax.swing.JPanel jPanel1 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+        javax.swing.JPanel jPanel2 = new javax.swing.JPanel();
+        javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         TFName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
         TFEmpID = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
         TFAge = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
         TFGender = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
         TFStartDate = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         TFLevel = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
         TFTeamInfo = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
         TFPositionTitle = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel10 = new javax.swing.JLabel();
         TFCellPhoneNo = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
+        javax.swing.JLabel jLabel11 = new javax.swing.JLabel();
         TFEmailAdd = new javax.swing.JTextField();
-        BtnCreate = new javax.swing.JButton();
-        BtnUpdate = new javax.swing.JButton();
-        BtnDelete = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JButton BtnCreate = new javax.swing.JButton();
+        javax.swing.JButton BtnUpdate = new javax.swing.JButton();
+        javax.swing.JButton BtnDelete = new javax.swing.JButton();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         TableEmp = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,9 +110,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         BtnCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/plus.png"))); // NOI18N
         BtnCreate.setText("Create");
+        BtnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCreateActionPerformed(evt);
+            }
+        });
 
         BtnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/eraser.png"))); // NOI18N
         BtnUpdate.setText("Update");
+        BtnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnUpdateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -277,6 +291,45 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TFEmailAddActionPerformed
 
+    private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
+        String name = TFName.getText();
+        String empid = TFEmpID.getText();
+        String age = TFAge.getText();
+        String gender = TFGender.getText();
+        String startdate = TFStartDate.getText();
+        String level = TFLevel.getText();
+        String positiontitle = TFPositionTitle.getText();
+        String cellphoneno = TFCellPhoneNo.getText();
+        String email = TFEmailAdd.getText();
+        
+        if (name.isEmpty() || empid.isEmpty()|| age.isEmpty() || gender.isEmpty() || startdate.isEmpty() 
+                || level.isEmpty() || positiontitle.isEmpty() || cellphoneno.isEmpty() || email.isEmpty()){
+            JOptionPane.showMessageDialog(this,
+                    "Please enter all fields",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            DefaultTableModel model = (DefaultTableModel) TableEmp.getModel();
+            model.addRow( new Object[] {name, empid, age, gender, startdate, level, positiontitle, cellphoneno, email});
+            
+            TFName.setText("");
+            TFEmpID.setText("");
+            TFAge.setText("");
+            TFGender.setText("");
+            TFStartDate.setText("");
+            TFLevel.setText("");
+            TFPositionTitle.setText("");
+            TFCellPhoneNo.setText("");
+            TFEmailAdd.setText("");
+            
+            
+        }
+    }//GEN-LAST:event_BtnCreateActionPerformed
+
+    private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnUpdateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -313,9 +366,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCreate;
-    private javax.swing.JButton BtnDelete;
-    private javax.swing.JButton BtnUpdate;
     private javax.swing.JTextField TFAge;
     private javax.swing.JTextField TFCellPhoneNo;
     private javax.swing.JTextField TFEmailAdd;
@@ -327,19 +377,5 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField TFStartDate;
     private javax.swing.JTextField TFTeamInfo;
     private javax.swing.JTable TableEmp;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
