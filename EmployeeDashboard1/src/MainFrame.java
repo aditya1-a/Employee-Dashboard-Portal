@@ -1,6 +1,8 @@
 
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -57,6 +59,8 @@ public class MainFrame extends javax.swing.JFrame {
         javax.swing.JButton BtnDelete = new javax.swing.JButton();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         TableEmp = new javax.swing.JTable();
+        TFSearch = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -259,7 +263,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         TableEmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "Name", "EmpID", "Age", "Gender", "StartDate", "Level", "Team Info", "Position Title", "CellNo", "Email"
@@ -271,6 +275,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(TableEmp);
+
+        TFSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TFSearchKeyReleased(evt);
+            }
+        });
+
+        jLabel12.setText("Search");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -287,8 +299,12 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(BtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE))))
+                                .addGap(81, 81, 81)
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TFSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 51, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -299,13 +315,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(BtnDelete)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnDelete)
+                            .addComponent(TFSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 10, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -463,6 +480,20 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_TableEmpMouseClicked
 
+    public void search(String str){
+        DefaultTableModel model = (DefaultTableModel)TableEmp.getModel();
+         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<DefaultTableModel>(model);
+         TableEmp.setRowSorter(trs);
+         trs.setRowFilter(RowFilter.regexFilter(str));
+    }
+    
+    private void TFSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFSearchKeyReleased
+         // TODO add your handling code here:
+         String search = TFSearch.getText();
+         search(search);
+         
+    }//GEN-LAST:event_TFSearchKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -507,8 +538,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField TFLevel;
     private javax.swing.JTextField TFName;
     private javax.swing.JTextField TFPositionTitle;
+    private javax.swing.JTextField TFSearch;
     private javax.swing.JTextField TFStartDate;
     private javax.swing.JTextField TFTeamInfo;
     private javax.swing.JTable TableEmp;
+    private javax.swing.JLabel jLabel12;
     // End of variables declaration//GEN-END:variables
 }
