@@ -1,8 +1,20 @@
 
+import java.awt.Component;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.RowFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,6 +26,8 @@ import javax.swing.table.TableRowSorter;
  * @author anupamaditya
  */
 public class MainFrame extends javax.swing.JFrame {
+
+    
 
     /**
      * Creates new form MainFrame
@@ -41,11 +55,9 @@ public class MainFrame extends javax.swing.JFrame {
         javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
         TFAge = new javax.swing.JTextField();
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
-        TFGender = new javax.swing.JTextField();
         javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
         TFStartDate = new javax.swing.JTextField();
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
-        TFLevel = new javax.swing.JTextField();
         javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
         TFTeamInfo = new javax.swing.JTextField();
         javax.swing.JLabel jLabel9 = new javax.swing.JLabel();
@@ -56,6 +68,10 @@ public class MainFrame extends javax.swing.JFrame {
         TFEmailAdd = new javax.swing.JTextField();
         javax.swing.JButton BtnCreate = new javax.swing.JButton();
         javax.swing.JButton BtnUpdate = new javax.swing.JButton();
+        BtnBrowse = new javax.swing.JButton();
+        image_txt = new javax.swing.JTextField();
+        TFLevel = new javax.swing.JComboBox<>();
+        TFGender = new javax.swing.JComboBox<>();
         javax.swing.JButton BtnDelete = new javax.swing.JButton();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         TableEmp = new javax.swing.JTable();
@@ -76,9 +92,26 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Name");
 
+        TFName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TFNameActionPerformed(evt);
+            }
+        });
+        TFName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFNameKeyPressed(evt);
+            }
+        });
+
         jLabel3.setText("Employee ID");
 
         jLabel4.setText("Age");
+
+        TFAge.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFAgeKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Gender");
 
@@ -101,6 +134,11 @@ public class MainFrame extends javax.swing.JFrame {
         TFCellPhoneNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TFCellPhoneNoActionPerformed(evt);
+            }
+        });
+        TFCellPhoneNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TFCellPhoneNoKeyPressed(evt);
             }
         });
 
@@ -128,6 +166,17 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        BtnBrowse.setText("Browse for Image");
+        BtnBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBrowseActionPerformed(evt);
+            }
+        });
+
+        TFLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13" }));
+
+        TFGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -140,74 +189,39 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(BtnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFEmailAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFCellPhoneNo, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFPositionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFTeamInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFGender, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFAge, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(TFName, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(TFEmailAdd, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFPositionTitle, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFTeamInfo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFStartDate, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFAge, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFEmpID, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFCellPhoneNo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BtnBrowse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(image_txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(TFLevel, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFGender, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -247,7 +261,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TFEmailAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnBrowse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(image_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCreate)
                     .addComponent(BtnUpdate)))
@@ -266,7 +284,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "EmpID", "Age", "Gender", "StartDate", "Level", "Team Info", "Position Title", "CellNo", "Email"
+                "Name", "EmpID", "Age", "Gender", "StartDate", "Level", "Team Info", "Position Title", "CellNo", "Email", "imageicon"
             }
         ));
         TableEmp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -296,6 +314,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(BtnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,8 +322,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(TFSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 51, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1))))
+                                .addGap(0, 51, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -322,7 +340,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -351,43 +369,79 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TFEmailAddActionPerformed
 
+   
+  
     private void BtnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCreateActionPerformed
         String name = TFName.getText();
         String empid = TFEmpID.getText();
         String age = TFAge.getText();
-        String gender = TFGender.getText();
+        String gender = TFGender.getSelectedItem().toString();
         String startdate = TFStartDate.getText();
-        String level = TFLevel.getText();
+        String level = TFLevel.getSelectedItem().toString();
         String teaminfo = TFTeamInfo.getText();
         String positiontitle = TFPositionTitle.getText();
         String cellphoneno = TFCellPhoneNo.getText();
         String email = TFEmailAdd.getText();
+        String image = image_txt.getText();
         
-        if (name.isEmpty() || empid.isEmpty()|| age.isEmpty() || gender.isEmpty() || startdate.isEmpty() 
-                || level.isEmpty() || teaminfo.isEmpty() || positiontitle.isEmpty() || cellphoneno.isEmpty() || email.isEmpty()){
+         TableEmp.getColumn("imageicon").setCellRenderer(new myTableCellRenderer());
+  
+             JLabel ImageLabel = new JLabel();        
+             ImageIcon imageicon = new ImageIcon(image);
+             //Resize image to fixed dimension 60 *60 (width and height)
+             Image ImageIC = imageicon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+             //storimng image in JLabel
+             ImageLabel.setIcon(new ImageIcon(ImageIC));
+       
+        
+        if (name.isEmpty() || empid.isEmpty()|| age.isEmpty() || gender.isEmpty()|| startdate.isEmpty() 
+                || level.isEmpty() || teaminfo.isEmpty() || positiontitle.isEmpty() || 
+                cellphoneno.isEmpty() || email.isEmpty() ||image.isEmpty()){
             JOptionPane.showMessageDialog(this,
                     "Please enter all fields",
                     "Try Again",
                     JOptionPane.ERROR_MESSAGE);
-        } else {
+        }
+        
+        else {
             DefaultTableModel model = (DefaultTableModel) TableEmp.getModel();
-            model.addRow( new Object[] {name, empid, age, gender, startdate, level, teaminfo, positiontitle, cellphoneno, email});
+            model.addRow( new Object[] {name, empid, age, gender, startdate, level, teaminfo, 
+                positiontitle, cellphoneno, email, ImageLabel});
+        
+            
+            
             
             TFName.setText("");
             TFEmpID.setText("");
             TFAge.setText("");
-            TFGender.setText("");
+            TFGender.setSelectedIndex(0);
             TFStartDate.setText("");
-            TFLevel.setText("");
+            TFLevel.setSelectedIndex(0);
             TFTeamInfo.setText("");
             TFPositionTitle.setText("");
             TFCellPhoneNo.setText("");
             TFEmailAdd.setText("");
+            image_txt.setText("");
             
             
-        }
+        } 
+        
     }//GEN-LAST:event_BtnCreateActionPerformed
-
+    class myTableCellRenderer implements TableCellRenderer{
+        
+        public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected, 
+                boolean hasFocus, int row, int column){
+            
+            //Change Image column minimum width and maximum width
+            TableColumn tb = TableEmp.getColumn("imageicon");
+            tb.setMaxWidth(60);
+            
+            TableEmp.setRowHeight(60);
+            return (Component) value;
+        }
+    } 
+    
+    
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
         //Get table Model
@@ -397,13 +451,14 @@ public class MainFrame extends javax.swing.JFrame {
             String name = TFName.getText();
             String empid = TFEmpID.getText();
             String age = TFAge.getText();
-            String gender = TFGender.getText();
+            String gender = TFGender.getSelectedItem().toString();
             String startdate = TFStartDate.getText();
-            String level = TFLevel.getText();
+            String level = TFLevel.getSelectedItem().toString();
             String teaminfo = TFTeamInfo.getText();
             String positiontitle = TFPositionTitle.getText();
             String cellphoneno = TFCellPhoneNo.getText();
             String email = TFEmailAdd.getText();
+            //String image = TFImage.getText();
             
             //Set updated value on table row
             model.setValueAt(name, TableEmp.getSelectedRow(),0);
@@ -416,6 +471,7 @@ public class MainFrame extends javax.swing.JFrame {
             model.setValueAt(positiontitle, TableEmp.getSelectedRow(),7);
             model.setValueAt(cellphoneno, TableEmp.getSelectedRow(),8);
             model.setValueAt(email, TableEmp.getSelectedRow(),9);
+   //         model.setValueAt(image, TableEmp.getSelectedRow(),10);
             
             //upadte message display
             JOptionPane.showMessageDialog(this, "Update Successfully");
@@ -428,7 +484,18 @@ public class MainFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Please select single row for update");
             }
         }
-            
+           
+            TFName.setText("");
+            TFEmpID.setText("");
+            TFAge.setText("");
+            TFGender.setSelectedIndex(0);
+            TFStartDate.setText("");
+            TFLevel.setSelectedIndex(0);
+            TFTeamInfo.setText("");
+            TFPositionTitle.setText("");
+            TFCellPhoneNo.setText("");
+            TFEmailAdd.setText("");
+            image_txt.setText("");
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
@@ -462,19 +529,20 @@ public class MainFrame extends javax.swing.JFrame {
         String TablePositionTitle = model.getValueAt(TableEmp.getSelectedRow(), 7).toString();
         String TableCellNo = model.getValueAt(TableEmp.getSelectedRow(), 8).toString();
         String TableEmail = model.getValueAt(TableEmp.getSelectedRow(), 9).toString();
-        
+        String TableImage = model.getValueAt(TableEmp.getSelectedRow(), 10).toString();
         //set to textField
         
         TFName.setText(TableName);
         TFEmpID.setText(TableEmpID);
         TFAge.setText(TableAge);
-        TFGender.setText(TableGender);
+        TFGender.setSelectedItem(TableGender);
         TFStartDate.setText(TableStartDate);
-        TFLevel.setText(TableLevel);
+        TFLevel.setSelectedItem(TableLevel);
         TFTeamInfo.setText(TableTeamInfo);
         TFPositionTitle.setText(TablePositionTitle);
         TFCellPhoneNo.setText(TableCellNo);
         TFEmailAdd.setText(TableEmail);
+        //TFImage.setText(TableImage);
         
         
         
@@ -493,6 +561,92 @@ public class MainFrame extends javax.swing.JFrame {
          search(search);
          
     }//GEN-LAST:event_TFSearchKeyReleased
+
+    private void BtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBrowseActionPerformed
+        // TODO add your handling code here:
+        JFileChooser browseImageFile = new JFileChooser();
+        //Filter image extensions
+        FileNameExtensionFilter Fnef = new FileNameExtensionFilter("Image", "png", "jpg", "jpeg");
+        browseImageFile.addChoosableFileFilter(Fnef);
+        int showOpenDialogue = browseImageFile.showOpenDialog(null);
+        if (showOpenDialogue == JFileChooser.APPROVE_OPTION){
+            File selectedImageFile = browseImageFile.getSelectedFile();
+            String selectedImagePath = selectedImageFile.getAbsolutePath();
+            image_txt.setText(selectedImagePath);
+            JOptionPane.showMessageDialog(null, selectedImagePath);
+            
+            //Display image on Label
+            //ImageIcon imageicon = new ImageIcon(selectedImagePath);
+            //Resize image to fit on Label
+            //Image image = imageicon.getImage().getScaledInstance(TFImage.getWidth(),TFImage.getHeight(),Image.SCALE_SMOOTH);
+            //TFImage.setIcon(new ImageIcon(image));
+        }
+        
+    }//GEN-LAST:event_BtnBrowseActionPerformed
+
+    private void TFNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TFNameActionPerformed
+
+    private void TFCellPhoneNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFCellPhoneNoKeyPressed
+        // TODO add your handling code here:
+        String CellNumber = TFCellPhoneNo.getText();
+        int length = CellNumber.length();
+        char c = evt.getKeyChar();
+        
+        //check for number 0 to 9
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            //check for length not more than 10 digit
+            if(length<10){
+                TFCellPhoneNo.setEditable(true);
+                
+            } else{
+                TFCellPhoneNo.setEditable(false);
+            }
+        }else{
+            if (evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE){
+                TFCellPhoneNo.setEditable(true);
+            } else{
+                TFCellPhoneNo.setEditable(false);
+            }
+        }
+        
+    }//GEN-LAST:event_TFCellPhoneNoKeyPressed
+
+    private void TFAgeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFAgeKeyPressed
+        // TODO add your handling code here:
+        String CellNumber = TFAge.getText();
+        int length = CellNumber.length();
+        char c = evt.getKeyChar();
+        
+        //check for number 0 to 1
+        if(evt.getKeyChar()>='0' && evt.getKeyChar()<='9'){
+            //check for length not more than 10 digit
+            if(length<2){
+                TFAge.setEditable(true);
+                
+            } else{
+                TFAge.setEditable(false);
+            }
+        }else{
+            if (evt.getExtendedKeyCode()==KeyEvent.VK_BACK_SPACE || evt.getExtendedKeyCode()==KeyEvent.VK_DELETE){
+                TFAge.setEditable(true);
+            } else{
+                TFAge.setEditable(false);
+            }
+        }
+    }//GEN-LAST:event_TFAgeKeyPressed
+
+    private void TFNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFNameKeyPressed
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        
+        if(Character.isLetter(c) || Character.isWhitespace(c )|| Character.isISOControl(c)){
+            TFName.setEditable(true);
+        } else {
+            TFName.setEditable(false);
+        }
+    }//GEN-LAST:event_TFNameKeyPressed
 
     /**
      * @param args the command line arguments
@@ -528,20 +682,23 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBrowse;
     private javax.swing.JTextField TFAge;
     private javax.swing.JTextField TFCellPhoneNo;
     private javax.swing.JTextField TFEmailAdd;
     private javax.swing.JTextField TFEmpID;
-    private javax.swing.JTextField TFGender;
-    private javax.swing.JTextField TFLevel;
+    private javax.swing.JComboBox<String> TFGender;
+    private javax.swing.JComboBox<String> TFLevel;
     private javax.swing.JTextField TFName;
     private javax.swing.JTextField TFPositionTitle;
     private javax.swing.JTextField TFSearch;
     private javax.swing.JTextField TFStartDate;
     private javax.swing.JTextField TFTeamInfo;
     private javax.swing.JTable TableEmp;
+    private javax.swing.JTextField image_txt;
     private javax.swing.JLabel jLabel12;
     // End of variables declaration//GEN-END:variables
 }
+
+
