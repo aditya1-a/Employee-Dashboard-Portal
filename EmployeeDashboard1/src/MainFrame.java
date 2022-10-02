@@ -3,6 +3,12 @@ import java.awt.Component;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -56,7 +62,6 @@ public class MainFrame extends javax.swing.JFrame {
         TFAge = new javax.swing.JTextField();
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
-        TFStartDate = new javax.swing.JTextField();
         javax.swing.JLabel jLabel7 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel8 = new javax.swing.JLabel();
         TFTeamInfo = new javax.swing.JTextField();
@@ -72,6 +77,7 @@ public class MainFrame extends javax.swing.JFrame {
         image_txt = new javax.swing.JTextField();
         TFLevel = new javax.swing.JComboBox<>();
         TFGender = new javax.swing.JComboBox<>();
+        TFDateChooser = new com.toedter.calendar.JDateChooser();
         javax.swing.JButton BtnDelete = new javax.swing.JButton();
         javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         TableEmp = new javax.swing.JTable();
@@ -177,6 +183,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         TFGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
+        TFDateChooser.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,34 +197,31 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(BtnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(TFEmailAdd, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFPositionTitle, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFTeamInfo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFStartDate, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFAge, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFEmpID, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(TFCellPhoneNo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnBrowse, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                            .addComponent(image_txt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                            .addComponent(TFLevel, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TFEmailAdd)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFPositionTitle)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFTeamInfo)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFAge)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFEmpID)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFName)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFCellPhoneNo)
+                            .addComponent(BtnBrowse, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(image_txt, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(TFLevel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFGender, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TFDateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(TFGender, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TFStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TFDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -376,13 +381,17 @@ public class MainFrame extends javax.swing.JFrame {
         String empid = TFEmpID.getText();
         String age = TFAge.getText();
         String gender = TFGender.getSelectedItem().toString();
-        String startdate = TFStartDate.getText();
+     //   String startdate = TFStartDate.getText();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(TFDateChooser.getDate());
         String level = TFLevel.getSelectedItem().toString();
         String teaminfo = TFTeamInfo.getText();
         String positiontitle = TFPositionTitle.getText();
         String cellphoneno = TFCellPhoneNo.getText();
         String email = TFEmailAdd.getText();
         String image = image_txt.getText();
+        int length = cellphoneno.length();
+        
         
          TableEmp.getColumn("imageicon").setCellRenderer(new myTableCellRenderer());
   
@@ -394,36 +403,46 @@ public class MainFrame extends javax.swing.JFrame {
              ImageLabel.setIcon(new ImageIcon(ImageIC));
        
         
-        if (name.isEmpty() || empid.isEmpty()|| age.isEmpty() || gender.isEmpty()|| startdate.isEmpty() 
+        if (name.isEmpty() || empid.isEmpty()|| age.isEmpty() || gender.isEmpty()|| date.isEmpty() 
                 || level.isEmpty() || teaminfo.isEmpty() || positiontitle.isEmpty() || 
                 cellphoneno.isEmpty() || email.isEmpty() ||image.isEmpty()){
             JOptionPane.showMessageDialog(this,
                     "Please enter all fields",
                     "Try Again",
                     JOptionPane.ERROR_MESSAGE);
-        }
+        } else if(length<10){
+            JOptionPane.showMessageDialog(this,
+                    "Please enter cell no of 10 digits",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+            
+        } else if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", email))) 
+{
+            JOptionPane.showMessageDialog(null,
+                    "Please enter a valid email",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
         
+   
         else {
             DefaultTableModel model = (DefaultTableModel) TableEmp.getModel();
-            model.addRow( new Object[] {name, empid, age, gender, startdate, level, teaminfo, 
+            model.addRow( new Object[] {name, empid, age, gender, date, level, teaminfo, 
                 positiontitle, cellphoneno, email, ImageLabel});
-        
-            
-            
             
             TFName.setText("");
             TFEmpID.setText("");
             TFAge.setText("");
             TFGender.setSelectedIndex(0);
-            TFStartDate.setText("");
+            //TFDateChooser.setDate("yyyy-MM-dd");
+            //TFDateChooser.setCalendar(null);
             TFLevel.setSelectedIndex(0);
             TFTeamInfo.setText("");
             TFPositionTitle.setText("");
             TFCellPhoneNo.setText("");
             TFEmailAdd.setText("");
             image_txt.setText("");
-            
-            
+          
         } 
         
     }//GEN-LAST:event_BtnCreateActionPerformed
@@ -444,58 +463,93 @@ public class MainFrame extends javax.swing.JFrame {
     
     private void BtnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnUpdateActionPerformed
         // TODO add your handling code here:
+    
         //Get table Model
         DefaultTableModel model = (DefaultTableModel) TableEmp.getModel();
-        if (TableEmp.getSelectedRowCount()==1){
-            //if single row is selected then update
-            String name = TFName.getText();
-            String empid = TFEmpID.getText();
-            String age = TFAge.getText();
-            String gender = TFGender.getSelectedItem().toString();
-            String startdate = TFStartDate.getText();
-            String level = TFLevel.getSelectedItem().toString();
-            String teaminfo = TFTeamInfo.getText();
-            String positiontitle = TFPositionTitle.getText();
-            String cellphoneno = TFCellPhoneNo.getText();
-            String email = TFEmailAdd.getText();
-            //String image = TFImage.getText();
+        if (TableEmp.getSelectedRowCount()==1)
+        {
             
-            //Set updated value on table row
-            model.setValueAt(name, TableEmp.getSelectedRow(),0);
-            model.setValueAt(empid, TableEmp.getSelectedRow(),1);
-            model.setValueAt(age, TableEmp.getSelectedRow(),2);
-            model.setValueAt(gender, TableEmp.getSelectedRow(),3);
-            model.setValueAt(startdate, TableEmp.getSelectedRow(),4);
-            model.setValueAt(level, TableEmp.getSelectedRow(),5);
-            model.setValueAt(teaminfo, TableEmp.getSelectedRow(),6);
-            model.setValueAt(positiontitle, TableEmp.getSelectedRow(),7);
-            model.setValueAt(cellphoneno, TableEmp.getSelectedRow(),8);
-            model.setValueAt(email, TableEmp.getSelectedRow(),9);
-   //         model.setValueAt(image, TableEmp.getSelectedRow(),10);
+                //if single row is selected then update
+                String name = TFName.getText();
+                String empid = TFEmpID.getText();
+                String age = TFAge.getText();
+                String gender = TFGender.getSelectedItem().toString();
+                //String startdate = TFStartDate.getText();
+                //Date date =TFDateChooser.getMaxSelectableDate();
+                //java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyyy-MM-dd");
+                //String formattedDate1 = fmt.format(TFDateChooser.getDate());
+                Date date = TFDateChooser.getDate();
+                String level = TFLevel.getSelectedItem().toString();
+                String teaminfo = TFTeamInfo.getText();
+                String positiontitle = TFPositionTitle.getText();
+                String cellphoneno = TFCellPhoneNo.getText();
+                String email = TFEmailAdd.getText();
+                int x= 0;
+               //String image = image_txt.getText();
+                //int length = cellphoneno.length();
+           
+         int length = cellphoneno.length();
+        if(length<10){
+            JOptionPane.showMessageDialog(this,
+                    "Please enter cell no of 10 digits",
+                    "Try Again",
+                    JOptionPane.ERROR_MESSAGE);
+                    x=1;
             
-            //upadte message display
-            JOptionPane.showMessageDialog(this, "Update Successfully");
-        } else{
-            if(TableEmp.getRowCount()==0){
-                //if table is empty
-                JOptionPane.showMessageDialog(this, "table is empty");
-            } else {
-                //if row is not selected or multiple row is selected
-                JOptionPane.showMessageDialog(this, "Please select single row for update");
+        } else if (!(Pattern.matches("^[a-zA-Z0-9]+[@]{1}+[a-zA-Z0-9]+[.]{1}+[a-zA-Z0-9]+$", email))) 
+           {
+            JOptionPane.showMessageDialog(null,
+                    "Please enter a valid email",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                    x=1;
+           
+            } if(x!=1)
+            {
+                //Set updated value on table row
+                model.setValueAt(name, TableEmp.getSelectedRow(),0);
+                model.setValueAt(empid, TableEmp.getSelectedRow(),1);
+                model.setValueAt(age, TableEmp.getSelectedRow(),2);
+                model.setValueAt(gender, TableEmp.getSelectedRow(),3);
+                //model.setValueAt(startdate, TableEmp.getSelectedRow(),4);
+                model.setValueAt(date, TableEmp.getSelectedRow(),4);
+                //int index = TableEmp.getSelectedRow();
+                //date = new SimpleDateFormat("yyyy-MM-dd").parse((String)model.getValueAt(index,4));
+                //model.setValueAt(date, TableEmp.getSelectedRow(),4);
+                model.setValueAt(level, TableEmp.getSelectedRow(),5);
+                model.setValueAt(teaminfo, TableEmp.getSelectedRow(),6);
+                model.setValueAt(positiontitle, TableEmp.getSelectedRow(),7);
+                model.setValueAt(cellphoneno, TableEmp.getSelectedRow(),8);
+                model.setValueAt(email, TableEmp.getSelectedRow(),9);
+                //model.setValueAt(image, TableEmp.getSelectedRow(),10);
+                
+                //upadte message display
+                JOptionPane.showMessageDialog(this, "Update Successfully");
             }
         }
+        
+    else if(TableEmp.getRowCount()==0){
+                //if table is empty
+                JOptionPane.showMessageDialog(this, "table is empty");
+            } else  {
+                //if row is not selected or multiple row is selected
+                JOptionPane.showMessageDialog(this, "Please select single row for update");
+                
+            } 
            
             TFName.setText("");
             TFEmpID.setText("");
             TFAge.setText("");
             TFGender.setSelectedIndex(0);
-            TFStartDate.setText("");
+          //TFStartDate.setText("");
+          //TFDateChooser.setDateFormatString("");
+            //TFDateChooser.setCalendar(null);
             TFLevel.setSelectedIndex(0);
             TFTeamInfo.setText("");
             TFPositionTitle.setText("");
             TFCellPhoneNo.setText("");
             TFEmailAdd.setText("");
-            image_txt.setText("");
+           //image_txt.setText("");
     }//GEN-LAST:event_BtnUpdateActionPerformed
 
     private void BtnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeleteActionPerformed
@@ -510,7 +564,19 @@ public class MainFrame extends javax.swing.JFrame {
         } else{
             DefaultTableModel model  = (DefaultTableModel) TableEmp.getModel();
             model.removeRow(row);
+            
         }
+            TFName.setText("");
+            TFEmpID.setText("");
+            TFAge.setText("");
+            TFGender.setSelectedIndex(0);
+          //TFStartDate.setText("");
+          //TFDateChooser.setDateFormatString("");
+            TFLevel.setSelectedIndex(0);
+            TFTeamInfo.setText("");
+            TFPositionTitle.setText("");
+            TFCellPhoneNo.setText("");
+            TFEmailAdd.setText("");
     }//GEN-LAST:event_BtnDeleteActionPerformed
 
     private void TableEmpMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableEmpMouseClicked
@@ -536,7 +602,7 @@ public class MainFrame extends javax.swing.JFrame {
         TFEmpID.setText(TableEmpID);
         TFAge.setText(TableAge);
         TFGender.setSelectedItem(TableGender);
-        TFStartDate.setText(TableStartDate);
+        //TFStartDate.setText(TableStartDate);
         TFLevel.setSelectedItem(TableLevel);
         TFTeamInfo.setText(TableTeamInfo);
         TFPositionTitle.setText(TablePositionTitle);
@@ -590,6 +656,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void TFCellPhoneNoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TFCellPhoneNoKeyPressed
         // TODO add your handling code here:
+        
+        try{
         String CellNumber = TFCellPhoneNo.getText();
         int length = CellNumber.length();
         char c = evt.getKeyChar();
@@ -609,6 +677,10 @@ public class MainFrame extends javax.swing.JFrame {
             } else{
                 TFCellPhoneNo.setEditable(false);
             }
+        }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
         }
         
     }//GEN-LAST:event_TFCellPhoneNoKeyPressed
@@ -686,6 +758,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton BtnBrowse;
     private javax.swing.JTextField TFAge;
     private javax.swing.JTextField TFCellPhoneNo;
+    private com.toedter.calendar.JDateChooser TFDateChooser;
     private javax.swing.JTextField TFEmailAdd;
     private javax.swing.JTextField TFEmpID;
     private javax.swing.JComboBox<String> TFGender;
@@ -693,7 +766,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField TFName;
     private javax.swing.JTextField TFPositionTitle;
     private javax.swing.JTextField TFSearch;
-    private javax.swing.JTextField TFStartDate;
     private javax.swing.JTextField TFTeamInfo;
     private javax.swing.JTable TableEmp;
     private javax.swing.JTextField image_txt;

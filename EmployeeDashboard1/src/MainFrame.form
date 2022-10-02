@@ -136,9 +136,9 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="BtnUpdate" pref="111" max="32767" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="TFEmailAdd" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel11" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel10" alignment="0" max="32767" attributes="0"/>
@@ -146,7 +146,6 @@
                                   <Component id="jLabel9" alignment="0" max="32767" attributes="0"/>
                                   <Component id="TFTeamInfo" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel8" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="TFStartDate" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
                                   <Component id="TFAge" alignment="0" max="32767" attributes="0"/>
@@ -160,16 +159,13 @@
                                   <Component id="BtnBrowse" alignment="0" pref="224" max="32767" attributes="0"/>
                                   <Component id="image_txt" alignment="0" pref="224" max="32767" attributes="0"/>
                                   <Component id="TFLevel" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="TFGender" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="TFDateChooser" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="TFGender" min="-2" pref="224" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -195,7 +191,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="TFStartDate" min="-2" max="-2" attributes="0"/>
+                      <Component id="TFDateChooser" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -287,8 +283,6 @@
                 <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JTextField" name="TFStartDate">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -429,6 +423,11 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="TFDateChooser">
+              <Properties>
+                <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
